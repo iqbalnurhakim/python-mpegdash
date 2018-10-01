@@ -2,3 +2,6 @@
 *.sw[op]
 *.ropeproject
 tests/mpd-samples/output.mpd
+mpegdash.egg-info
+.DS_Store
+.eggs

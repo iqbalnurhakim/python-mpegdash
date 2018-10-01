@@ -352,6 +352,63 @@ class ContentComponent(XMLNode):
         write_child_node(xmlnode, 'Rating', self.ratings)
         write_child_node(xmlnode, 'Viewpoint', self.viewpoints)
 
+class MarlinContentId(XMLNode):
+    def __init__(self):
+        self.value = ''
+
+    def parse(self, xmlnode):
+        self.value = parse_node_value(xmlnode, str)
+    
+    def write(self, xmlnode):
+        write_node_value(xmlnode, self.value)
+
+class MarlinContentIds(XMLNode):
+    def __init__(self):
+        self.marlin_content_id = None
+        self.xmlns_mas = None
+        self.scheme_id_uri = ''                               # xs:anyURI (required)
+        self.value = None                                     # xs:string
+        self.id = None                                        # xs:string
+
+    def parse(self, xmlnode):
+        self.marlin_content_id = parse_child_nodes(xmlnode, 'MarlinContentId', MarlinContentId)
+        self.xmlns_mas = parse_attr_value(xmlnode, 'xmlns:mas', str)
+        self.scheme_id_uri = parse_attr_value(xmlnode, 'schemeIdUri', str)
+        self.value = parse_attr_value(xmlnode, 'value', str)
+        self.id = parse_attr_value(xmlnode, 'id', str)
+
+    def write(self, xmlnode):
+        write_child_node(xmlnode, 'mas:MarlinContentId', self.marlin_content_id)
+        write_attr_value(xmlnode, 'xmlns:mas', self.xmlns_mas)
+        write_attr_value(xmlnode, 'schemeIdUri', self.scheme_id_uri)
+        write_attr_value(xmlnode, 'value', self.value)
+        write_attr_value(xmlnode, 'id', self.id)
+
+class ContentProtection(XMLNode):
+    def __init__(self):
+        self.marlin_content_ids = None
+        self.cenc_default_KID= None
+        self.xmlns_cenc = None
+        self.scheme_id_uri = ''                               # xs:anyURI (required)
+        self.value = None                                     # xs:string
+        self.id = None                                        # xs:string
+
+
+    def parse(self, xmlnode):
+        self.marlin_content_ids = parse_child_nodes(xmlnode, 'MarlinContentIds', MarlinContentIds)
+        self.cenc_default_KID = parse_attr_value(xmlnode, 'cenc:default_KID', str)
+        self.xmlns_cenc = parse_attr_value(xmlnode, 'xmlns:cenc', str)
+        self.scheme_id_uri = parse_attr_value(xmlnode, 'schemeIdUri', str)
+        self.value = parse_attr_value(xmlnode, 'value', str)
+        self.id = parse_attr_value(xmlnode, 'id', str)
+
+    def write(self, xmlnode):
+        write_child_node(xmlnode, 'mas:MarlinContentIds', self.marlin_content_ids)
+        write_attr_value(xmlnode, 'cenc:default_KID', self.cenc_default_KID)
+        write_attr_value(xmlnode, 'xmlns:cenc', self.xmlns_cenc)
+        write_attr_value(xmlnode, 'schemeIdUri', self.scheme_id_uri)
+        write_attr_value(xmlnode, 'value', self.value)
+        write_attr_value(xmlnode, 'id', self.id)
 
 class RepresentationBase(XMLNode):
     def __init__(self):
@@ -395,7 +452,7 @@ class RepresentationBase(XMLNode):
 
         self.frame_packings = parse_child_nodes(xmlnode, 'FramePacking', Descriptor)
         self.audio_channel_configurations = parse_child_nodes(xmlnode, 'AudioChannelConfiguration', Descriptor)
-        self.content_protections = parse_child_nodes(xmlnode, 'ContentProtection', Descriptor)
+        self.content_protections = parse_child_nodes(xmlnode, 'ContentProtection', ContentProtection)
         self.essential_properties = parse_child_nodes(xmlnode, 'EssentialProperty', Descriptor)
         self.supplemental_properties = parse_child_nodes(xmlnode, 'SupplementalProperty', Descriptor)
         self.inband_event_streams = parse_child_nodes(xmlnode, 'InbandEventStream', Descriptor)
@@ -532,7 +589,7 @@ class AdaptationSet(RepresentationBase):
         self.segment_lists = None                             # SegmentListType*
         self.segment_templates = None                         # SegmentTemplateType*
         self.representations = None                           # RepresentationType*
-
+        self.content_protections = None
     def parse(self, xmlnode):
         RepresentationBase.parse(self, xmlnode)
 
@@ -564,7 +621,8 @@ class AdaptationSet(RepresentationBase):
         self.segment_lists = parse_child_nodes(xmlnode, 'SegmentList', SegmentList)
         self.segment_templates = parse_child_nodes(xmlnode, 'SegmentTemplate', SegmentTemplate)
         self.representations = parse_child_nodes(xmlnode, 'Representation', Representation)
-
+        self.content_protections = parse_child_nodes(xmlnode, 'ContentProtection', ContentProtection)
+        
     def write(self, xmlnode):
         RepresentationBase.write(self, xmlnode)
 

@@ -27,3 +27,18 @@ class MPD2XMLTestCase(unittest.TestCase):
 
         self.assertTrue(len(all_reprs) == 5)
         self.assertTrue(len(all_reprs) == len(all_reprs2))
+
+    def test_mpd2xml_with_marlin(self):
+        mpd = MPEGDASHParser.parse('./tests/mpd-samples/marlin.mpd')
+        MPEGDASHParser.write(mpd, './tests/mpd-samples/output.mpd')
+
+        all_marlin_kid = []
+        for period in mpd.periods:
+            for adapt_set in period.adaptation_sets:
+                for content_protection in adapt_set.content_protections:
+                    if content_protection.marlin_content_ids != None:
+                        for marlin_content_ids in content_protection.marlin_content_ids:
+                            for marlin_content_id in marlin_content_ids.marlin_content_id:
+                                all_marlin_kid.append(marlin_content_id.value)
+
+        self.assertTrue(len(all_marlin_kid) == 2)

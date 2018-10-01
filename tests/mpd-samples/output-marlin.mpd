@@ -1,0 +1,34 @@
+<?xml version="1.0" ?>
+    <MPD id="82a05777-0c91-4ae1-8d49-a23bdcd722a1" mediaPresentationDuration="P0Y0M0DT0H2M44.920S" minBufferTime="P0Y0M0DT0H0M2.000S" profiles="urn:mpeg:dash:profile:isoff-live:2011,urn:com:dashif:dash264" type="static" xmlns="urn:mpeg:dash:schema:mpd:2011">
+        <Period id="2b7c312b-c658-4e76-92d3-1b7010d45f97">
+            <AdaptationSet mimeType="video/mp4" segmentAlignment="True">
+                <ContentProtection cenc:default_KID="asdkfakfak" schemeIdUri="urn:mpeg:dash:mp4protection:2011" value="cenc" xmlns:cenc="urn:mpeg:cenc:2013"/>
+                <ContentProtection schemeIdUri="urn:uuid:asdkfakfak">
+                    <mas:MarlinContentIds xmlns:mas="urn:marlin:mas:1-0:services:schemas:mpd">
+                        <mas:MarlinContentId>urn:marlin:kid:asdkfakfak</mas:MarlinContentId>
+                    </mas:MarlinContentIds>
+                </ContentProtection>
+                <Representation bandwidth="1000000" codecs="avc1.42C01F" frameRate="25" height="720" id="861227ff-1ef4-474f-abf5-d67329cec0ab" width="1280">
+                    <SegmentTemplate duration="100000" initialization="video/720p/init.mp4" media="video/720p/s$Number$.m4s" startNumber="0" timescale="25000"/>
+                </Representation>
+                <Representation bandwidth="800000" codecs="avc1.42C01E" frameRate="25" height="480" id="6079dc05-5fc9-4692-ae4a-5e4714941369" width="852">
+                    <SegmentTemplate duration="100000" initialization="video/480p/init.mp4" media="video/480p/s$Number$.m4s" startNumber="0" timescale="25000"/>
+                </Representation>
+                <Representation bandwidth="500000" codecs="avc1.42C01E" frameRate="25" height="360" id="24fbf0a5-55e8-4f29-bd84-4ba407cd5942" width="640">
+                    <SegmentTemplate duration="100000" initialization="video/360/init.mp4" media="video/360/s$Number$.m4s" startNumber="0" timescale="25000"/>
+                </Representation>
+            </AdaptationSet>
+            <AdaptationSet lang="ID" mimeType="audio/mp4" segmentAlignment="True">
+                <AudioChannelConfiguration schemeIdUri="urn:mpeg:dash:23003:3:audio_channel_configuration:2011" value="2"/>
+                <ContentProtection cenc:default_KID="asdkfakfak" schemeIdUri="urn:mpeg:dash:mp4protection:2011" value="cenc" xmlns:cenc="urn:mpeg:cenc:2013"/>
+                <ContentProtection schemeIdUri="urn:uuid:asdkfakfak">
+                    <mas:MarlinContentIds xmlns:mas="urn:marlin:mas:1-0:services:schemas:mpd">
+                        <mas:MarlinContentId>urn:marlin:kid:asdkfakfak</mas:MarlinContentId>
+                    </mas:MarlinContentIds>
+                </ContentProtection>
+                <Representation audioSamplingRate="48000" bandwidth="128000" codecs="mp4a.40.2" id="3395224b-9b82-40a8-9187-7285104c0ac2">
+                    <SegmentTemplate duration="192000" initialization="audio/init.mp4" media="audio/s$Number$.mp4" startNumber="0" timescale="48000"/>
+                </Representation>
+            </AdaptationSet>
+        </Period>
+    </MPD>
