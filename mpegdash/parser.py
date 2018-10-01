@@ -38,6 +38,6 @@ class MPEGDASHParser(object):
 
     @classmethod 
     def to_xmlstring(cls, mpd): 
-        xml_doc = minidom.Document
+        xml_doc = minidom.Document()
         write_child_node(xml_doc, 'MPD', mpd)
-        return xml_doc.toprettyxml(indent='    ', addindent='    ', newl='\n')
+        return xml_doc.toprettyxml()

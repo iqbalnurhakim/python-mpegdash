@@ -30,7 +30,7 @@ class MPD2XMLTestCase(unittest.TestCase):
 
     def test_mpd2xml_with_marlin(self):
         mpd = MPEGDASHParser.parse('./tests/mpd-samples/marlin.mpd')
-        MPEGDASHParser.write(mpd, './tests/mpd-samples/output.mpd')
+        print(MPEGDASHParser.to_xmlstring(mpd))
 
         all_marlin_kid = []
         for period in mpd.periods:
