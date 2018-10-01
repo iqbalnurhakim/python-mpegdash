@@ -35,3 +35,8 @@ class MPEGDASHParser(object):
         write_child_node(xml_doc, 'MPD', mpd)
         with open(filepath, 'w') as f:
             xml_doc.writexml(f, indent='    ', addindent='    ', newl='\n')
+
+    @classmethod to_xmlstring(cls, mpd): 
+        xml_doc = minidom.Document
+        write_child_node(xml_doc, 'MPD', mpd)
+        return xml_doc.toprettyxml(indent='    ', addindent='    ', newl='\n')
