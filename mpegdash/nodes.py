@@ -383,6 +383,17 @@ class MarlinContentIds(XMLNode):
         write_attr_value(xmlnode, 'schemeIdUri', self.scheme_id_uri)
         write_attr_value(xmlnode, 'value', self.value)
         write_attr_value(xmlnode, 'id', self.id)
+        
+class WidevineContentId(XMLNode):
+    def __init__(self):
+        self.value = ''
+        self.xmlns_cenc = None
+    def parse(self, xmlnode):
+        self.value = parse_node_value(xmlnode, str)
+        self.xmlns_cenc = parse_attr_value(xmlnode, 'xmlns:cenc', str)
+    def write(self, xmlnode):
+        write_node_value(xmlnode, self.value)
+        write_attr_value(xmlnode, 'xmlns:cenc', self.xmlns_cenc)
 
 class ContentProtection(XMLNode):
     def __init__(self):
@@ -392,7 +403,7 @@ class ContentProtection(XMLNode):
         self.scheme_id_uri = ''                               # xs:anyURI (required)
         self.value = None                                     # xs:string
         self.id = None                                        # xs:string
-
+        self.widevine = None
 
     def parse(self, xmlnode):
         self.marlin_content_ids = parse_child_nodes(xmlnode, 'MarlinContentIds', MarlinContentIds)
@@ -401,6 +412,7 @@ class ContentProtection(XMLNode):
         self.scheme_id_uri = parse_attr_value(xmlnode, 'schemeIdUri', str)
         self.value = parse_attr_value(xmlnode, 'value', str)
         self.id = parse_attr_value(xmlnode, 'id', str)
+        self.widevine = parse_child_nodes(xmlnode, 'pssh', WidevineContentId)
 
     def write(self, xmlnode):
         write_child_node(xmlnode, 'mas:MarlinContentIds', self.marlin_content_ids)
@@ -409,6 +421,8 @@ class ContentProtection(XMLNode):
         write_attr_value(xmlnode, 'schemeIdUri', self.scheme_id_uri)
         write_attr_value(xmlnode, 'value', self.value)
         write_attr_value(xmlnode, 'id', self.id)
+        write_child_node(xmlnode, 'cenc:pssh', self.widevine)
+
 
 class RepresentationBase(XMLNode):
     def __init__(self):
