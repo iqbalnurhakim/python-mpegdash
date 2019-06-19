@@ -383,7 +383,7 @@ class MarlinContentIds(XMLNode):
         write_attr_value(xmlnode, 'schemeIdUri', self.scheme_id_uri)
         write_attr_value(xmlnode, 'value', self.value)
         write_attr_value(xmlnode, 'id', self.id)
-        
+
 class WidevineContentId(XMLNode):
     def __init__(self):
         self.value = ''
@@ -422,7 +422,6 @@ class ContentProtection(XMLNode):
         write_attr_value(xmlnode, 'value', self.value)
         write_attr_value(xmlnode, 'id', self.id)
         write_child_node(xmlnode, 'cenc:pssh', self.widevine)
-
 
 class RepresentationBase(XMLNode):
     def __init__(self):
