@@ -12,7 +12,7 @@ setup(
   long_description=long_description,
   author="supercast",
   author_email="gamzabaw@gmail.com",
-  version="0.1.6",
+  version="0.1.7",
   license="MIT",
   zip_safe=False,
   include_package_data=True,
